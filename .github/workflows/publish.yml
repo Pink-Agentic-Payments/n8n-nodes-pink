@@ -59,6 +59,10 @@ jobs:
         run: npm run build
 
       - name: Publish
+        # RELEASE_MODE bypasses @n8n/node-cli's prepublishOnly guard, which
+        # otherwise refuses a direct `npm publish` outside `npm run release`
+        # (an interactive, local-only flow unsuitable for CI).
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          RELEASE_MODE: 'true'
