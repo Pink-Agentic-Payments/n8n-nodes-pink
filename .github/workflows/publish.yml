@@ -7,11 +7,7 @@
 #
 # ─── STATUS ─────────────────────────────────────────────────────────────────
 #
-# First release (0.1.0): uses a short-lived npm granular token (NPM_TOKEN
-# repo secret) because npm Trusted Publishers can only be configured once the
-# package already exists on the registry. Once 0.1.0 is live, the Trusted
-# Publisher is configured on npmjs.com and this workflow switches to OIDC
-# (no NPM_TOKEN needed), per npm's own setup order requirement.
+# Publishes via npm OIDC Trusted Publishing (no NPM_TOKEN secret).
 #
 # ─── TAG CONVENTION ────────────────────────────────────────────────────────────
 #
@@ -45,9 +41,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: '22'
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
+
+      # OIDC trusted publishing needs npm >= 11.5; the npm bundled with
+      # actions/setup-node's Node 22 is older, so upgrade it first.
+      - run: npm install -g npm@11
 
       - name: Install dependencies
         run: npm ci
@@ -62,7 +62,11 @@ jobs:
         # RELEASE_MODE bypasses @n8n/node-cli's prepublishOnly guard, which
         # otherwise refuses a direct `npm publish` outside `npm run release`
         # (an interactive, local-only flow unsuitable for CI).
+        #
+        # Requires npm >= 11.5 configured as a Trusted Publisher for this
+        # package on npmjs.com (Settings -> Trusted Publisher -> GitHub
+        # Actions, pointing at this repo + this workflow file). No NPM_TOKEN
+        # secret needed; auth is via OIDC.
         run: npm publish --provenance --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           RELEASE_MODE: 'true'

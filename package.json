@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-pink",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "n8n community node for Pink Agentic AI Payments: let an AI agent or workflow pay within the spending rules a company sets (per-agent budgets, single-payment caps, payee allow-lists, human approval thresholds), checked against the Pink sandbox before any credential is issued.",
 	"license": "MIT",
 	"homepage": "https://pinkwallet.com/agentic/developers/",
