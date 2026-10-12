@@ -1,0 +1,93 @@
+{
+  "name": "Pay an invoice within rules you set",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "f3a1a1a1-0000-4000-8000-000000000001",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-200, 0]
+    },
+    {
+      "parameters": {
+        "operation": "requestPayment",
+        "amount": 50,
+        "currency": "USD",
+        "payeeId": "p_figma",
+        "purpose": "Monthly Figma invoice"
+      },
+      "id": "f3a1a1a1-0000-4000-8000-000000000002",
+      "name": "Pay Invoice",
+      "type": "n8n-nodes-pink.pinkAgenticPayments",
+      "typeVersion": 1,
+      "position": [20, 0],
+      "credentials": {
+        "pinkAgenticPaymentsApi": {
+          "id": "1",
+          "name": "Pink Agentic Payments sandbox"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.decision }}",
+              "rightValue": "allowed",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "f3a1a1a1-0000-4000-8000-000000000003",
+      "name": "Allowed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "// decision=allowed: $json.credential has a single-use sandbox virtual card\nreturn $input.all();"
+      },
+      "id": "f3a1a1a1-0000-4000-8000-000000000004",
+      "name": "Use Credential",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, -100]
+    },
+    {
+      "parameters": {
+        "jsCode": "// decision=blocked or pending_human: $json.reason / $json.who explains why\nreturn $input.all();"
+      },
+      "id": "f3a1a1a1-0000-4000-8000-000000000005",
+      "name": "Blocked or Pending",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 100]
+    }
+  ],
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [[{ "node": "Pay Invoice", "type": "main", "index": 0 }]]
+    },
+    "Pay Invoice": {
+      "main": [[{ "node": "Allowed?", "type": "main", "index": 0 }]]
+    },
+    "Allowed?": {
+      "main": [
+        [{ "node": "Use Credential", "type": "main", "index": 0 }],
+        [{ "node": "Blocked or Pending", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "description": "Sandbox preview, test money only. Uses the Pink Agentic Payments node to request a payment that is checked against the spending rules set for the paying agent (budget, cap, payee allow-list, approval thresholds) before any credential is issued.",
+    "instanceId": "pink-agentic-payments-example"
+  }
+}

@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-pink.pinkAgenticPayments",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Finance & Accounting"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://github.com/Pink-Agentic-Payments/n8n-nodes-pink#credentials"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://github.com/Pink-Agentic-Payments/n8n-nodes-pink#readme"
+			}
+		]
+	}
+}
