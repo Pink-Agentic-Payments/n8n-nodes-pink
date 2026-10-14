@@ -7,6 +7,14 @@ above thresholds, a shared company daily ceiling). Every request this node makes
 checked against those rules before a payment credential is ever issued, and comes back
 as one of three decisions: `allowed`, `pending_human`, or `blocked`, with the reason.
 
+## See it run (1:49, uncut)
+
+![An n8n AI Agent calls the Pink tool and gets an "allowed" decision back](assets/demo/agent-pays.gif)
+
+Full uncut demo: install from npm, credential test, $50 allowed / $350 blocked, then an AI Agent paying through Pink as a tool. Sandbox, test money.
+
+[Watch the full 1:49 video](assets/demo/n8n-pink-demo.mp4)
+
 > **Sandbox preview, test money only.** This node talks to
 > `https://agentic-sandbox.pinkwallet.com` by default. No real money moves. Production
 > is not yet available for this product.
