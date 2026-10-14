@@ -13,7 +13,7 @@ as one of three decisions: `allowed`, `pending_human`, or `blocked`, with the re
 
 Full uncut demo: install from npm, credential test, $50 allowed / $350 blocked, then an AI Agent paying through Pink as a tool. Sandbox, test money.
 
-[Watch the full 1:49 video](assets/demo/n8n-pink-demo.mp4)
+[Watch the full 1:49 video](assets/demo/n8n-pink-demo.mp4) · [Watch on YouTube](https://youtu.be/s6kOikOEjYs)
 
 > **Sandbox preview, test money only.** This node talks to
 > `https://agentic-sandbox.pinkwallet.com` by default. No real money moves. Production
