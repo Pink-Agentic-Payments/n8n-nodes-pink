@@ -1,0 +1,49 @@
+1
+00:00:00,000 --> 00:00:17,000
+Settings → Community Nodes: install n8n-nodes-pink
+(npm latest, v0.1.1)
+
+2
+00:00:17,000 --> 00:00:30,000
+Insert the Pink Agentic Payments node
+into a new workflow
+
+3
+00:00:30,000 --> 00:00:36,000
+Create the Pink Agentic Payments credential
+(Agent API Key, masked)
+
+4
+00:00:36,000 --> 00:00:42,000
+Request Payment: $50 to p_openai
+-> decision: allowed
+
+5
+00:00:42,000 --> 00:00:48,000
+Request Payment: $350 to p_openai
+-> decision: blocked
+
+6
+00:00:48,000 --> 00:00:54,000
+Check Policy, $350 -> would_block
+"API credits over $200 a day: blocked" (rule r4)
+
+7
+00:00:54,000 --> 00:01:12,000
+New workflow: Chat Trigger + AI Agent
++ Google Gemini Chat Model
+
+8
+00:01:12,000 --> 00:01:33,000
+Add Pink Agentic Payments as a Tool on the AI Agent
+(Amount / Payee ID / Purpose: defined automatically by the model)
+
+9
+00:01:33,000 --> 00:01:39,000
+Chat: "Pay $50 to p_openai for API credits
+top-up via Pink"
+
+10
+00:01:39,000 --> 00:01:49,300
+Pink tool call -> allowed, pay_f1af87cbe079
+Workflow executed successfully
