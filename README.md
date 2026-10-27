@@ -2,7 +2,7 @@
 
 n8n community node for **Pink Agentic AI Payments** — the payment infrastructure by
 PinkWallet that lets an AI agent or workflow pay within the spending rules a company
-sets (per-agent monthly budgets, single-payment caps, payee allow-lists, human approval
+sets (per-agent monthly budgets, amount rules that send large single payments to a person, payee allow-lists, human approval
 above thresholds, a shared company daily ceiling). Every request this node makes is
 checked against those rules before a payment credential is ever issued, and comes back
 as one of three decisions: `allowed`, `pending_human`, or `blocked`, with the reason.
